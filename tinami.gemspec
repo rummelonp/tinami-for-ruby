@@ -4,12 +4,12 @@ require "tinami/version"
 
 Gem::Specification.new do |s|
   s.name        = "tinami"
-  s.version     = Tinami::VERSION
+  s.version     = TINAMI::VERSION
   s.authors     = ["Kazuya Takeshima"]
   s.email       = ["mail@mitukiii.jp"]
   s.homepage    = ""
-  s.summary     = %q{Tinami is a simple TINAMI API library.}
-  s.description = %q{Tinami is a simple TINAMI API library.}
+  s.summary     = %q{TINAMI is a simple TINAMI API library.}
+  s.description = %q{TINAMI is a simple TINAMI API library.}
 
   s.rubyforge_project = "tinami"
   s.add_dependency("rest-client")

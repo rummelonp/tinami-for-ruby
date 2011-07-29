@@ -1,5 +1,5 @@
 require "tinami/version"
 
-module Tinami
+module TINAMI
   # Your code goes here...
 end

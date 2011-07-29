@@ -1,6 +1,6 @@
-= Tinami
+= TINAMI
 
-Tinami is a simple TINAMI API library.
+TINAMI is a simple TINAMI API library.
 
 == Copyright
 
