@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Kazuya Takeshima"]
   s.email       = ["mail@mitukiii.jp"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Tinami is a simple TINAMI API library.}
+  s.description = %q{Tinami is a simple TINAMI API library.}
 
   s.rubyforge_project = "tinami"
 
