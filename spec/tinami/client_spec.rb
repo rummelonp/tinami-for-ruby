@@ -4,7 +4,6 @@ describe TINAMI::Client do
   before do
     TINAMI.configure do |config|
       config.api_key  = 'api_key'
-      config.auth_key = 'auth_key'
     end
 
     @client = TINAMI::Client.new
@@ -13,6 +12,14 @@ describe TINAMI::Client do
   it 'should respond to auth' do
     @client.should_receive(:post).with('/auth', api_key: 'api_key', email: 'email', password: 'password')
     @client.auth(email: 'email', password: 'password')
+  end
+
+  before do
+    TINAMI.configure do |config|
+      config.auth_key = 'auth_key'
+    end
+
+    @client
   end
 
   it 'should respond to info' do
@@ -26,7 +33,7 @@ describe TINAMI::Client do
   end
 
   it 'should respond to search' do
-    @client.should_receive(:get).with('/content/search', api_key: 'api_key', text: 'keyword')
+    @client.should_receive(:get).with('/content/search', api_key: 'api_key', auth_key: 'auth_key', text: 'keyword')
     @client.search(text: 'keyword')
   end
 
@@ -66,22 +73,22 @@ describe TINAMI::Client do
   end
 
   it 'should respond to ranking' do
-    @client.should_receive(:get).with('/ranking', api_key: 'api_key', category: '1')
+    @client.should_receive(:get).with('/ranking', api_key: 'api_key', auth_key: 'auth_key', category: '1')
     @client.ranking(category: '1')
   end
 
   it 'should respond to content' do
-    @client.should_receive(:get).with('/content/info', api_key: 'api_key', cont_id: '1')
+    @client.should_receive(:get).with('/content/info', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
     @client.content(cont_id: '1')
   end
 
   it 'should respond to creator' do
-    @client.should_receive(:get).with('/creator/info', api_key: 'api_key', prof_id: '1')
+    @client.should_receive(:get).with('/creator/info', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
     @client.creator(prof_id: '1')
   end
 
   it 'should respond to comments' do
-    @client.should_receive(:get).with('/content/comment/list', api_key: 'api_key', cont_id: '1')
+    @client.should_receive(:get).with('/content/comment/list', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
     @client.comments(cont_id: '1')
   end
 
