@@ -1,5 +1,10 @@
+require "tinami/client"
 require "tinami/version"
 
 module TINAMI
-  # Your code goes here...
+  extend self
+
+  def client(options = {})
+    TINAMI::Client.new(options)
+  end
 end
