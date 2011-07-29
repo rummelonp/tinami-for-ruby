@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TINAMI::Client do
@@ -106,6 +107,30 @@ describe TINAMI::Client do
     it 'should respond to support' do
       @client.should_receive(:get).with('/content/support', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
       @client.support(cont_id: '1')
+    end
+  end
+
+  context :error do
+    before do
+      @client = TINAMI::Client.new
+    end
+
+    def create_response(stat, content)
+      {stat: stat}.merge(content).to_xml(root: :rsp)
+    end
+
+    it do
+      lambda {
+        response = create_response('fail', {err: {msg: 'auth_keyが指定されていません'}})
+        @client.parse_response(response)
+      }.should raise_error(TINAMI::Error)
+    end
+
+    it do
+      lambda {
+        response = create_response('ok', {user: {no: 1}})
+        @client.parse_response(response)
+      }.should_not raise_error(TINAMI::Error)
     end
   end
 end
