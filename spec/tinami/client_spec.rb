@@ -76,7 +76,7 @@ describe TINAMI::Client do
 
     it 'should respond to ranking' do
       @client.should_receive(:get).with('/ranking', api_key: 'api_key', auth_key: 'auth_key', category: '1')
-      @client.ranking(category: '1')
+      @client.ranking('1')
     end
 
     it 'should respond to content' do

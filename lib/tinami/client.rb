@@ -47,6 +47,11 @@ module TINAMI
       __add_bookmark(prof_id: prof_id)
     end
 
+    alias_method :__ranking, :ranking
+    def ranking(category)
+      __ranking(category: category)
+    end
+
     private
     def keys_params
       params = {}
