@@ -52,6 +52,11 @@ module TINAMI
       __ranking(category: category)
     end
 
+    alias_method :__content, :content
+    def content(cont_id)
+      __content(cont_id: cont_id)
+    end
+
     private
     def keys_params
       params = {}
