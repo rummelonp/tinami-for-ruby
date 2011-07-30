@@ -37,6 +37,11 @@ module TINAMI
       __auth(email: email, password: password)
     end
 
+    alias_method :__add_collection, :add_collection
+    def add_collection(cont_id)
+      __add_collection(cont_id: cont_id)
+    end
+
     private
     def keys_params
       params = {}

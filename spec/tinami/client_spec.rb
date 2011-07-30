@@ -61,7 +61,7 @@ describe TINAMI::Client do
 
     it 'should respond to add_collection' do
       @client.should_receive(:get).with('/collection/add', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
-      @client.add_collection(cont_id: '1')
+      @client.add_collection('1')
     end
 
     it 'should respond to bookmarks' do
