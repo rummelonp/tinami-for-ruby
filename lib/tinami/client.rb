@@ -36,13 +36,14 @@ module TINAMI
       method_name, path, auth, http_method = *api
       http_method ||= 'get'
       define_method method_name do |params = {}|
-        params = key_params.merge(params)
-        send http_method, path, params
+        params = keys_params.merge(params)
+        send(http_method, path, params)
       end
     end
 
-    def key_params
-      params = {api_key: api_key}
+    def keys_params
+      params = {}
+      params[:api_key] = api_key if api_key
       params[:auth_key] = auth_key if auth_key
       params
     end

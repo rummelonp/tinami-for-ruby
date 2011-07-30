@@ -23,8 +23,8 @@ module TINAMI
     end
 
     def options
-      OPTIONS_KEYS.inject({}) do |option, key|
-        option.merge!(key => send(key))
+      OPTIONS_KEYS.inject({}) do |options, key|
+        options.merge!(key => send(key))
       end
     end
 
