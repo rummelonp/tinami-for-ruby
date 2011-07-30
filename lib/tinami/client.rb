@@ -42,6 +42,11 @@ module TINAMI
       __add_collection(cont_id: cont_id)
     end
 
+    alias_method :__add_bookmark, :add_bookmark
+    def add_bookmark(prof_id)
+      __add_bookmark(prof_id: prof_id)
+    end
+
     private
     def keys_params
       params = {}

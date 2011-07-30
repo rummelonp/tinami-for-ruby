@@ -71,7 +71,7 @@ describe TINAMI::Client do
 
     it 'should respond to add_bookmark' do
       @client.should_receive(:get).with('/bookmark/add', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
-      @client.add_bookmark(prof_id: '1')
+      @client.add_bookmark('1')
     end
 
     it 'should respond to ranking' do
