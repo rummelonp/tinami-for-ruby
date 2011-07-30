@@ -86,7 +86,7 @@ describe TINAMI::Client do
 
     it 'should respond to creator' do
       @client.should_receive(:get).with('/creator/info', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
-      @client.creator(prof_id: '1')
+      @client.creator('1')
     end
 
     it 'should respond to comments' do

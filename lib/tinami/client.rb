@@ -57,6 +57,11 @@ module TINAMI
       __content(cont_id: cont_id)
     end
 
+    alias_method :__creator, :creator
+    def creator(prof_id)
+      __creator(prof_id: prof_id)
+    end
+
     private
     def keys_params
       params = {}
