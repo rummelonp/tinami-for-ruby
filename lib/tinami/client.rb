@@ -62,6 +62,11 @@ module TINAMI
       __creator(prof_id: prof_id)
     end
 
+    alias_method :__comments, :comments
+    def comments(cont_id)
+      __comments(cont_id: cont_id)
+    end
+
     private
     def keys_params
       params = {}
