@@ -32,6 +32,11 @@ module TINAMI
       end
     end
 
+    alias_method :__auth, :auth
+    def auth(email, password)
+      __auth(email: email, password: password)
+    end
+
     private
     def keys_params
       params = {}

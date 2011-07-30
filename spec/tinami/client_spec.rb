@@ -15,7 +15,7 @@ describe TINAMI::Client do
 
     it 'should respond to auth' do
       @client.should_receive(:post).with('/auth', api_key: 'api_key', email: 'email', password: 'password')
-      @client.auth(email: 'email', password: 'password')
+      @client.auth('email', 'password')
     end
   end
 
