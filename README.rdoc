@@ -14,14 +14,14 @@ TINAMI is a simple TINAMI API library.
       config.api_key = '*** api_key ***'
     end
     
-    auth = TINAMI.auth(email: '*** email ***', password: '*** password ***')
+    auth = TINAMI.auth('*** email ***', '*** password ***')
     auth_key = auth.auth_key
     client = TINAMI.client(auth_key: auth_key)
     
     info = client.info
     info.user # => {no: "146005"}
     
-    ranking = client.ranking(category: 1)
+    ranking = client.ranking(1)
     ranking.contents.each do |content|
       # ... do something
     end
