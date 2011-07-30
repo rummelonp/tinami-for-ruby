@@ -1,4 +1,5 @@
 require "tinami/configuration"
+require "tinami/api"
 require "tinami/client"
 require "tinami/error"
 require "tinami/version"

@@ -122,14 +122,14 @@ describe TINAMI::Client do
     it do
       lambda {
         response = create_response('fail', {err: {msg: 'auth_keyが指定されていません'}})
-        @client.parse_response(response)
+        @client.send(:parse_response, response)
       }.should raise_error(TINAMI::Error)
     end
 
     it do
       lambda {
         response = create_response('ok', {user: {no: 1}})
-        @client.parse_response(response)
+        @client.send(:parse_response, response)
       }.should_not raise_error(TINAMI::Error)
     end
   end

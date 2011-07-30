@@ -3,16 +3,7 @@ require 'active_support/core_ext/hash'
 require 'hashie'
 
 module TINAMI
-  class Client
-    attr_accessor *Configuration::OPTIONS_KEYS
-
-    def initialize(options = {})
-      options = TINAMI.options.merge(options)
-      Configuration::OPTIONS_KEYS.each do |key|
-        send("#{key}=", options[key])
-      end
-    end
-
+  class Client < API
     "
       auth                  /auth                          none     post
       info                  /login/info                    auth_key
@@ -41,35 +32,12 @@ module TINAMI
       end
     end
 
+    private
     def keys_params
       params = {}
       params[:api_key] = api_key if api_key
       params[:auth_key] = auth_key if auth_key
       params
-    end
-
-    def header
-      {user_agent: user_agent}
-    end
-
-    def get(path, params)
-      response = RestClient.get(endpoint + path, header.merge(params: params))
-      parse_response(response)
-    end
-
-    def post(path, params)
-      response = RestClient.post(endpoint + path, params, header)
-      parse_response(response)
-    end
-
-    def parse_response(response)
-      xml = Hashie::Mash.new(Hash.from_xml(response))
-      case xml.rsp.stat
-      when 'fail'
-        raise Error.new(xml.rsp.err.msg, response)
-      else
-        xml.rsp
-      end
     end
   end
 end
