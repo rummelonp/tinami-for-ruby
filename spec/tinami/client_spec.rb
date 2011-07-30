@@ -101,7 +101,7 @@ describe TINAMI::Client do
 
     it 'should respond to remove_comment' do
       @client.should_receive(:get).with('/content/comment/remove', api_key: 'api_key', auth_key: 'auth_key', comment_id: '1')
-      @client.remove_comment(comment_id: '1')
+      @client.remove_comment('1')
     end
 
     it 'should respond to support' do
