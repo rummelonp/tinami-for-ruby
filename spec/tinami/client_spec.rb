@@ -96,7 +96,7 @@ describe TINAMI::Client do
 
     it 'should respond to add_comment' do
       @client.should_receive(:get).with('/content/comment/add', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1', comment: 'comment')
-      @client.add_comment(cont_id: '1', comment: 'comment')
+      @client.add_comment('1', 'comment')
     end
 
     it 'should respond to remove_comment' do

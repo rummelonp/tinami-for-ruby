@@ -67,6 +67,11 @@ module TINAMI
       __comments(cont_id: cont_id)
     end
 
+    alias_method :__add_comment, :add_comment
+    def add_comment(cont_id, comment)
+      __add_comment(cont_id: cont_id, comment: comment)
+    end
+
     private
     def keys_params
       params = {}
