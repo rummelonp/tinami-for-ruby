@@ -106,7 +106,7 @@ describe TINAMI::Client do
 
     it 'should respond to support' do
       @client.should_receive(:get).with('/content/support', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
-      @client.support(cont_id: '1')
+      @client.support('1')
     end
   end
 

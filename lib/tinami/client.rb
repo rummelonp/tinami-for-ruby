@@ -77,6 +77,11 @@ module TINAMI
       __remove_comment(comment_id: comment_id)
     end
 
+    alias_method :__support, :support
+    def support(cont_id)
+      __support(cont_id: cont_id)
+    end
+
     private
     def keys_params
       params = {}
