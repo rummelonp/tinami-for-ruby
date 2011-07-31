@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "tinami"
   s.add_dependency("rest-client")
-  s.add_dependency("active_support")
+  s.add_dependency("activesupport")
   s.add_dependency("hashie")
 
   s.files         = `git ls-files`.split("\n")
