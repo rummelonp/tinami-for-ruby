@@ -9,12 +9,12 @@ module TINAMI
       end
     end
 
-    def get(path, params)
+    def get(path, params = {})
       response = RestClient.get(endpoint + path, header.merge(params: params))
       parse_response(response)
     end
 
-    def post(path, params)
+    def post(path, params = {})
       response = RestClient.post(endpoint + path, params, header)
       parse_response(response)
     end
