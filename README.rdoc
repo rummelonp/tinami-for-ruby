@@ -35,6 +35,7 @@ TINAMI is a simple TINAMI API library.
 
     rest-client
     active_support
+    i18n
     hashie
 
 == Copyright
