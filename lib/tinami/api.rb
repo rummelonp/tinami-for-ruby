@@ -14,7 +14,7 @@ module TINAMI
 
     # Perform an HTTP GET request
     def get(path, params = {})
-      response = RestClient.get(endpoint + path, header.merge(params: params))
+      response = RestClient.get(endpoint + path, header.merge(:params => params))
       parse_response(response)
     end
 
@@ -26,7 +26,7 @@ module TINAMI
 
     private
     def header
-      {user_agent: user_agent}
+      {:user_agent => user_agent}
     end
 
     def parse_response(response)

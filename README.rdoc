@@ -16,17 +16,17 @@ TINAMI is a simple TINAMI API library.
     
     auth = TINAMI.auth('*** email ***', '*** password ***')
     auth_key = auth.auth_key
-    client = TINAMI.client(auth_key: auth_key)
+    client = TINAMI.client(:auth_key => auth_key)
     
     info = client.info
-    info.user # => {no: "146005"}
+    info.user # => {:no => "146005"}
     
     ranking = client.ranking(1)
     ranking.contents.content.each do |content|
       # ... do something
     end
     
-    search = client.search(text: '魔法少女まどか★マギカ')
+    search = client.search(:text => '魔法少女まどか★マギカ')
     search.contents.content.each do |content|
       # ... do something
     end
@@ -42,4 +42,4 @@ TINAMI is a simple TINAMI API library.
 
 Copyright (C) 2011 Kazuya Takeshima
 
-Released under the WTFPL: http://sam.zoy.org/wtfpl
+Released under the :WTFPL => http://sam.zoy.org/wtfpl

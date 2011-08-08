@@ -28,7 +28,8 @@ module TINAMI
     ".strip.split("\n").map {|l| l.strip.split(/\s+/)}.each do |api|
       method_name, path, auth, http_method = *api
       http_method ||= 'get'
-      define_method method_name do |params = {}|
+      define_method method_name do |*args|
+        params = args.pop || {}
         params = keys_params.merge(params)
         send(http_method, path, params)
       end
@@ -36,52 +37,52 @@ module TINAMI
 
     alias_method :__auth, :auth
     def auth(email, password)
-      __auth(email: email, password: password)
+      __auth(:email => email, :password => password)
     end
 
     alias_method :__add_collection, :add_collection
     def add_collection(cont_id)
-      __add_collection(cont_id: cont_id)
+      __add_collection(:cont_id => cont_id)
     end
 
     alias_method :__add_bookmark, :add_bookmark
     def add_bookmark(prof_id)
-      __add_bookmark(prof_id: prof_id)
+      __add_bookmark(:prof_id => prof_id)
     end
 
     alias_method :__ranking, :ranking
     def ranking(category)
-      __ranking(category: category)
+      __ranking(:category => category)
     end
 
     alias_method :__content, :content
     def content(cont_id)
-      __content(cont_id: cont_id)
+      __content(:cont_id => cont_id)
     end
 
     alias_method :__creator, :creator
     def creator(prof_id)
-      __creator(prof_id: prof_id)
+      __creator(:prof_id => prof_id)
     end
 
     alias_method :__comments, :comments
     def comments(cont_id)
-      __comments(cont_id: cont_id)
+      __comments(:cont_id => cont_id)
     end
 
     alias_method :__add_comment, :add_comment
     def add_comment(cont_id, comment)
-      __add_comment(cont_id: cont_id, comment: comment)
+      __add_comment(:cont_id => cont_id, :comment => comment)
     end
 
     alias_method :__remove_comment, :remove_comment
     def remove_comment(comment_id)
-      __remove_comment(comment_id: comment_id)
+      __remove_comment(:comment_id => comment_id)
     end
 
     alias_method :__support, :support
     def support(cont_id)
-      __support(cont_id: cont_id)
+      __support(:cont_id => cont_id)
     end
 
     private
