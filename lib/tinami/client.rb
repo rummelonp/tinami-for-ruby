@@ -3,7 +3,9 @@ require 'active_support/core_ext/hash'
 require 'hashie'
 
 module TINAMI
+  # Wrapper for the TINAMI REST API
   class Client < API
+    # method name,          path for API,           authentication, http method
     "
       auth                  /auth                          none     post
       info                  /login/info                    auth_key

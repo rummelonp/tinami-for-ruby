@@ -1,4 +1,5 @@
 module TINAMI
+  # Custom error class for rescuing from all TINAMI errors
   class Error < StandardError
     attr_reader :response
 
