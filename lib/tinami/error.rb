@@ -16,4 +16,8 @@ module TINAMI
   # Raised when TINAMI returns the stat user_only
   class UserOnlyError < Error
   end
+
+  # Raised when TINAMI returns the stat bookmark_user_only
+  class BookmarkUserOnlyError < Error
+  end
 end

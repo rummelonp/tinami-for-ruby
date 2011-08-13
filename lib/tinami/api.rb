@@ -38,6 +38,8 @@ module TINAMI
           error_class = FailError
         when 'user_only'
           error_class = UserOnlyError
+        when 'bookmark_user_only'
+          error_class = BookmarkUserOnlyError
         else
           error_class = Error
         end

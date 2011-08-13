@@ -142,6 +142,13 @@ describe TINAMI::Client do
 
     it do
       lambda {
+        response = create_response('bookmark_user_only', {:err => {:msg => 'この作品はお気に入りユーザー限定の作品です'}})
+        @client.send(:parse_response, response)
+      }.should raise_error(TINAMI::BookmarkUserOnlyError)
+    end
+
+    it do
+      lambda {
         response = create_response('unknown', {:err => {:msg => 'unknown error'}})
         @client.send(:parse_response, response)
       }.should raise_error(TINAMI::Error)
