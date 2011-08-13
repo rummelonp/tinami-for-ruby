@@ -123,6 +123,20 @@ describe TINAMI::Client do
       lambda {
         response = create_response('fail', {:err => {:msg => 'auth_keyが指定されていません'}})
         @client.send(:parse_response, response)
+      }.should raise_error(TINAMI::FailError)
+    end
+
+    it do
+      lambda {
+        response = create_response('user_only', {:err => {:msg => 'この作品は登録ユーザー限定の作品です'}})
+        @client.send(:parse_response, response)
+      }.should raise_error(TINAMI::UserOnlyError)
+    end
+
+    it do
+      lambda {
+        response = create_response('unknown', {:err => {:msg => 'unknown error'}})
+        @client.send(:parse_response, response)
       }.should raise_error(TINAMI::Error)
     end
 

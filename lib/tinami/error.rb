@@ -8,4 +8,12 @@ module TINAMI
       @response = response
     end
   end
+
+  # Raised when TINAMI returns the stat fail
+  class FailError < Error
+  end
+
+  # Raised when TINAMI returns the stat user_only
+  class UserOnlyError < Error
+  end
 end
