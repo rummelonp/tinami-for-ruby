@@ -31,17 +31,20 @@ module TINAMI
 
     def parse_response(response)
       xml = Hashie::Mash.new(Hash.from_xml(response))
-      if xml.rsp.err
-        case xml.rsp.stat
+      res = xml.rsp
+      if res.stat != 'ok' || res.err
+        case res.stat
         when 'fail'
-          raise FailError.new(xml.rsp.err.msg, response)
+          error_class = FailError
         when 'user_only'
-          raise UserOnlyError.new(xml.rsp.err.msg, response)
+          error_class = UserOnlyError
         else
-          raise Error.new(xml.rsp.err.msg, response)
+          error_class = Error
         end
+        msg = res.err ? res.err.msg : nil
+        raise error_class.new(msg, response)
       else
-        xml.rsp
+        res
       end
     end
   end

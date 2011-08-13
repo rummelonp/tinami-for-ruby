@@ -128,6 +128,13 @@ describe TINAMI::Client do
 
     it do
       lambda {
+        response = create_response('fail', {})
+        @client.send(:parse_response, response)
+      }.should raise_error(TINAMI::FailError)
+    end
+
+    it do
+      lambda {
         response = create_response('user_only', {:err => {:msg => 'この作品は登録ユーザー限定の作品です'}})
         @client.send(:parse_response, response)
       }.should raise_error(TINAMI::UserOnlyError)
