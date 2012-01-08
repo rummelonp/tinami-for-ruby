@@ -12,10 +12,11 @@ Gem::Specification.new do |s|
   s.description = %q{TINAMI is a simple TINAMI API library.}
 
   s.rubyforge_project = "tinami"
-  s.add_dependency("rest-client")
-  s.add_dependency("activesupport")
-  s.add_dependency("i18n")
-  s.add_dependency("hashie")
+  s.add_runtime_dependency("rest-client", "~> 1.6.7")
+  s.add_runtime_dependency("activesupport", "~> 3.1.3")
+  s.add_runtime_dependency("i18n", "~> 0.6.0")
+  s.add_runtime_dependency("hashie", "~> 1.2.0")
+  s.add_development_dependency("rspec", "~> 2.8.0")
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
