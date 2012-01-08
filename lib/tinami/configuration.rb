@@ -34,6 +34,7 @@ module TINAMI
     # Convenience method to allow configuration options to be set in a block
     def configure
       yield self
+      self
     end
 
     # Create a hash of options and their values
@@ -49,6 +50,7 @@ module TINAMI
       self.auth_key   = DEFAULT_AUTH_KEY
       self.endpoint   = DEFAULT_ENDPOINT
       self.user_agent = DEFAULT_USER_AGENT
+      self
     end
   end
 end
