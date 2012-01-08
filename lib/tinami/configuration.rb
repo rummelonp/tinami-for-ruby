@@ -21,7 +21,7 @@ module TINAMI
     DEFAULT_ENDPOINT   = 'http://api.tinami.com'.freeze
 
     # The user agent that will be sent to the API endpoint if none is set
-    DEFAULT_USER_AGENT = 'TINAMI Ruby Gem'.freeze
+    DEFAULT_USER_AGENT = "TINAMI/#{VERSION} (https://github.com/mitukiii/tinami-for-ruby)".freeze
 
     # @private
     attr_accessor *OPTIONS_KEYS
