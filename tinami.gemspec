@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = TINAMI::VERSION
   s.authors     = ["Kazuya Takeshima"]
   s.email       = ["mail@mitukiii.jp"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/mitukiii/tinami-for-ruby"
   s.summary     = %q{TINAMI is a simple TINAMI API library.}
   s.description = %q{TINAMI is a simple TINAMI API library.}
 
