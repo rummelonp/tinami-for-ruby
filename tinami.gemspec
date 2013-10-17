@@ -1,25 +1,22 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "tinami/version"
+# -*- coding: utf-8 -*-
 
-Gem::Specification.new do |s|
-  s.name        = "tinami"
-  s.version     = TINAMI::VERSION
-  s.authors     = ["Kazuya Takeshima"]
-  s.email       = ["mail@mitukiii.jp"]
-  s.homepage    = "https://github.com/mitukiii/tinami-for-ruby"
-  s.summary     = %q{TINAMI is a simple TINAMI API library.}
-  s.description = %q{TINAMI is a simple TINAMI API library.}
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'tinami/version'
 
-  s.rubyforge_project = "tinami"
-  s.add_runtime_dependency("rest-client", "~> 1.6.7")
-  s.add_runtime_dependency("activesupport", "~> 3.1.3")
-  s.add_runtime_dependency("i18n", "~> 0.6.0")
-  s.add_runtime_dependency("hashie", "~> 1.2.0")
-  s.add_development_dependency("rspec", "~> 2.8.0")
+Gem::Specification.new do |spec|
+  spec.name        = 'tinami'
+  spec.version     = TINAMI::VERSION
+  spec.authors     = ['Kazuya Takeshima']
+  spec.email       = ['mail@mitukiii.jp']
+  spec.summary     = %q{TINAMI is a simple TINAMI API library.}
+  spec.description = %q{TINAMI is a simple TINAMI API library.}
+  spec.homepage    = 'https://github.com/mitukiii/tinami-for-ruby'
+  spec.license     = 'MIT'
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.add_runtime_dependency 'rest-client', '~> 1.6.7'
+  spec.add_runtime_dependency 'activesupport', '~> 3.1.3'
+  spec.add_runtime_dependency 'i18n', '~> 0.6.0'
+  spec.add_runtime_dependency 'hashie', '~> 1.2.0'
+  spec.add_development_dependency 'rspec', '~> 2.8.0'
 end
