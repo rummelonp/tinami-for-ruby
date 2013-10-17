@@ -14,9 +14,17 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/mitukiii/tinami-for-ruby'
   spec.license     = 'MIT'
 
-  spec.add_runtime_dependency 'rest-client', '~> 1.6.7'
-  spec.add_runtime_dependency 'activesupport', '~> 3.1.3'
-  spec.add_runtime_dependency 'i18n', '~> 0.6.0'
-  spec.add_runtime_dependency 'hashie', '~> 1.2.0'
-  spec.add_development_dependency 'rspec', '~> 2.8.0'
+  spec.add_runtime_dependency 'faraday', '~> 0.8.8'
+  spec.add_runtime_dependency 'faraday_middleware', '~> 0.9.0'
+  spec.add_runtime_dependency 'multi_xml', '~> 0.5.5'
+  spec.add_runtime_dependency 'hashie', '~> 2.0.5'
+
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'growl'
+  spec.add_development_dependency 'guard-rspec'
+  spec.add_development_dependency 'ox'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'yard'
 end
