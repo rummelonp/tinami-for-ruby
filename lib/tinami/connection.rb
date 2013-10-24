@@ -5,9 +5,9 @@ module TINAMI
   module Connection
     def connection(options = {})
       default_options = {
-        :headers => {
-          :accept => 'application/xml',
-          :user_agent => user_agent,
+        headers: {
+          accept: 'application/xml',
+          user_agent: user_agent,
         },
       }
       options = default_options.merge(options)

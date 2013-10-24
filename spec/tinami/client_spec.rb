@@ -14,98 +14,98 @@ describe TINAMI::Client do
     end
 
     it 'should respond to auth' do
-      @client.should_receive(:post).with('/auth', :api_key => 'api_key', :email => 'email', :password => 'password')
+      @client.should_receive(:post).with('/auth', api_key: 'api_key', email: 'email', password: 'password')
       @client.auth('email', 'password')
     end
   end
 
   context :api do
     before do
-      @client = TINAMI::Client.new(:auth_key => 'auth_key')
+      @client = TINAMI::Client.new(auth_key: 'auth_key')
     end
 
     it 'should respond to info' do
-      @client.should_receive(:get).with('/login/info', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/login/info', api_key: 'api_key', auth_key: 'auth_key')
       @client.info
     end
 
     it 'should respond to logout' do
-      @client.should_receive(:get).with('/logout', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/logout', api_key: 'api_key', auth_key: 'auth_key')
       @client.logout
     end
 
     it 'should respond to search' do
-      @client.should_receive(:get).with('/content/search', :api_key => 'api_key', :auth_key => 'auth_key', :text => 'keyword')
-      @client.search(:text => 'keyword')
+      @client.should_receive(:get).with('/content/search', api_key: 'api_key', auth_key: 'auth_key', text: 'keyword')
+      @client.search(text: 'keyword')
     end
 
     it 'should respond to bookmark_contents' do
-      @client.should_receive(:get).with('/bookmark/content/list', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/bookmark/content/list', api_key: 'api_key', auth_key: 'auth_key')
       @client.bookmark_contents
     end
 
     it 'should respond to friend_recommenrds' do
-      @client.should_receive(:get).with('/friend/recommend/content/list', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/friend/recommend/content/list', api_key: 'api_key', auth_key: 'auth_key')
       @client.friend_recommends
     end
 
     it 'should respond to watchkeyword_contents' do
-      @client.should_receive(:get).with('/watchkeyword/content/list', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/watchkeyword/content/list', api_key: 'api_key', auth_key: 'auth_key')
       @client.watchkeyword_contents
     end
 
     it 'should respond to collections' do
-      @client.should_receive(:get).with('/collection/list', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/collection/list', api_key: 'api_key', auth_key: 'auth_key')
       @client.collections
     end
 
     it 'should respond to add_collection' do
-      @client.should_receive(:get).with('/collection/add', :api_key => 'api_key', :auth_key => 'auth_key', :cont_id => '1')
+      @client.should_receive(:get).with('/collection/add', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
       @client.add_collection('1')
     end
 
     it 'should respond to bookmarks' do
-      @client.should_receive(:get).with('/bookmark/list', :api_key => 'api_key', :auth_key => 'auth_key')
+      @client.should_receive(:get).with('/bookmark/list', api_key: 'api_key', auth_key: 'auth_key')
       @client.bookmarks
     end
 
     it 'should respond to add_bookmark' do
-      @client.should_receive(:get).with('/bookmark/add', :api_key => 'api_key', :auth_key => 'auth_key', :prof_id => '1')
+      @client.should_receive(:get).with('/bookmark/add', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
       @client.add_bookmark('1')
     end
 
     it 'should respond to ranking' do
-      @client.should_receive(:get).with('/ranking', :api_key => 'api_key', :auth_key => 'auth_key', :category => '1')
+      @client.should_receive(:get).with('/ranking', api_key: 'api_key', auth_key: 'auth_key', category: '1')
       @client.ranking('1')
     end
 
     it 'should respond to content' do
-      @client.should_receive(:get).with('/content/info', :api_key => 'api_key', :auth_key => 'auth_key', :cont_id => '1')
+      @client.should_receive(:get).with('/content/info', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
       @client.content('1')
     end
 
     it 'should respond to creator' do
-      @client.should_receive(:get).with('/creator/info', :api_key => 'api_key', :auth_key => 'auth_key', :prof_id => '1')
+      @client.should_receive(:get).with('/creator/info', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
       @client.creator('1')
     end
 
     it 'should respond to comments' do
-      @client.should_receive(:get).with('/content/comment/list', :api_key => 'api_key', :auth_key => 'auth_key', :cont_id => '1')
+      @client.should_receive(:get).with('/content/comment/list', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
       @client.comments('1')
     end
 
     it 'should respond to add_comment' do
-      @client.should_receive(:get).with('/content/comment/add', :api_key => 'api_key', :auth_key => 'auth_key', :cont_id => '1', :comment => 'comment')
+      @client.should_receive(:get).with('/content/comment/add', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1', comment: 'comment')
       @client.add_comment('1', 'comment')
     end
 
     it 'should respond to remove_comment' do
-      @client.should_receive(:get).with('/content/comment/remove', :api_key => 'api_key', :auth_key => 'auth_key', :comment_id => '1')
+      @client.should_receive(:get).with('/content/comment/remove', api_key: 'api_key', auth_key: 'auth_key', comment_id: '1')
       @client.remove_comment('1')
     end
 
     it 'should respond to support' do
-      @client.should_receive(:get).with('/content/support', :api_key => 'api_key', :auth_key => 'auth_key', :cont_id => '1')
+      @client.should_receive(:get).with('/content/support', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
       @client.support('1')
     end
   end
@@ -116,12 +116,12 @@ describe TINAMI::Client do
     end
 
     def create_response(stat, content)
-      {:stat => stat}.merge(content).to_xml(:root => :rsp)
+      {stat: stat}.merge(content).to_xml(root: :rsp)
     end
 
     pending do
       lambda {
-        response = create_response('fail', {:err => {:msg => 'auth_keyが指定されていません'}})
+        response = create_response('fail', {err: {msg: 'auth_keyが指定されていません'}})
         @client.send(:parse_response, response)
       }.should raise_error(TINAMI::FailError)
     end
@@ -135,28 +135,28 @@ describe TINAMI::Client do
 
     pending do
       lambda {
-        response = create_response('user_only', {:err => {:msg => 'この作品は登録ユーザー限定の作品です'}})
+        response = create_response('user_only', {err: {msg: 'この作品は登録ユーザー限定の作品です'}})
         @client.send(:parse_response, response)
       }.should raise_error(TINAMI::UserOnlyError)
     end
 
     pending do
       lambda {
-        response = create_response('bookmark_user_only', {:err => {:msg => 'この作品はお気に入りユーザー限定の作品です'}})
+        response = create_response('bookmark_user_only', {err: {msg: 'この作品はお気に入りユーザー限定の作品です'}})
         @client.send(:parse_response, response)
       }.should raise_error(TINAMI::BookmarkUserOnlyError)
     end
 
     pending do
       lambda {
-        response = create_response('unknown', {:err => {:msg => 'unknown error'}})
+        response = create_response('unknown', {err: {msg: 'unknown error'}})
         @client.send(:parse_response, response)
       }.should raise_error(TINAMI::Error)
     end
 
     pending do
       lambda {
-        response = create_response('ok', {:user => {:no => 1}})
+        response = create_response('ok', {user: {no: 1}})
         @client.send(:parse_response, response)
       }.should_not raise_error(TINAMI::Error)
     end
