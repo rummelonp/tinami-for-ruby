@@ -19,7 +19,7 @@ module TINAMI
   end
 
   # Delegate to {TINAMI::Client}
-  def self.respond_to?(method_name)
-    return client.respond_to?(method_name) || super
+  def self.respond_to?(method_name, include_private = false)
+    return client.respond_to?(method_name, include_private) || super
   end
 end
