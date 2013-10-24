@@ -9,11 +9,11 @@ module TINAMI
     include Request
 
     # @private
-    attr_accessor *Configuration::OPTIONS_KEYS
+    attr_accessor *Configuration::VALID_OPTIONS_KEYS
 
     def initialize(options = {})
       options = TINAMI.options.merge(options)
-      Configuration::OPTIONS_KEYS.each do |key|
+      Configuration::VALID_OPTIONS_KEYS.each do |key|
         send("#{key}=", options[key])
       end
     end

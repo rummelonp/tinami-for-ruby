@@ -2,7 +2,7 @@ require 'tinami/client'
 require 'tinami/configuration'
 
 module TINAMI
-  extend TINAMI::Configuration
+  extend Configuration
 
   # Alias for TINAMI::Client.new
   #
