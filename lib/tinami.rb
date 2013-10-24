@@ -1,8 +1,6 @@
-require "tinami/version"
-require "tinami/configuration"
-require "tinami/api"
-require "tinami/client"
-require "tinami/error"
+require 'tinami/client'
+require 'tinami/configuration'
+require 'tinami/version'
 
 module TINAMI
   extend TINAMI::Configuration

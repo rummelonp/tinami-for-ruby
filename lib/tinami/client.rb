@@ -1,6 +1,4 @@
-require 'restclient'
-require 'active_support/core_ext/hash'
-require 'hashie'
+require 'tinami/api'
 
 module TINAMI
   # Wrapper for the TINAMI REST API

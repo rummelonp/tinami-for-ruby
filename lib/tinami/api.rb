@@ -1,3 +1,7 @@
+require 'faraday'
+require 'faraday_middleware'
+require 'tinami/error'
+
 module TINAMI
   # @private
   class API
@@ -14,39 +18,42 @@ module TINAMI
 
     # Perform an HTTP GET request
     def get(path, params = {})
-      response = RestClient.get(endpoint + path, header.merge(:params => params))
-      parse_response(response)
+      request(:get, path, params)
     end
 
     # Perform an HTTP POST request
     def post(path, params = {})
-      response = RestClient.post(endpoint + path, params, header)
-      parse_response(response)
+      request(:post, path, params)
     end
 
-    private
-    def header
-      {:user_agent => user_agent}
-    end
-
-    def parse_response(response)
-      xml = Hashie::Mash.new(Hash.from_xml(response))
-      res = xml.rsp
-      if res.stat != 'ok' || res.err
-        case res.stat
-        when 'fail'
-          error_class = FailError
-        when 'user_only'
-          error_class = UserOnlyError
-        when 'bookmark_user_only'
-          error_class = BookmarkUserOnlyError
-        else
-          error_class = Error
+    # Perform an HTTP request
+    def request(http_method, path, params = {})
+      response = connection.send(http_method) do |request|
+        case http_method
+        when :get, :delete
+          request.url(path, params)
+        when :post, :put
+          request.path = path
+          request.body = params unless params.empty?
         end
-        msg = res.err ? res.err.msg : nil
-        raise error_class.new(msg, response)
-      else
-        res
+      end
+      response.body.rsp
+    end
+
+    def connection
+      options = {
+        :headers => {
+          :accept => 'application/xml',
+          :user_agent => user_agent,
+        },
+      }
+
+      Faraday::Connection.new(endpoint, options) do |builder|
+        # TODO: raise error
+        builder.response :mashify
+        builder.response :xml
+        builder.request :url_encoded
+        builder.adapter :net_http
       end
     end
   end
