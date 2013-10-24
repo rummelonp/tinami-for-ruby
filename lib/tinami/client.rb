@@ -1,8 +1,23 @@
-require 'tinami/api'
+require 'tinami/configuration'
+require 'tinami/connection'
+require 'tinami/request'
 
 module TINAMI
   # Wrapper for the TINAMI REST API
-  class Client < API
+  class Client
+    include Connection
+    include Request
+
+    # @private
+    attr_accessor *Configuration::OPTIONS_KEYS
+
+    def initialize(options = {})
+      options = TINAMI.options.merge(options)
+      Configuration::OPTIONS_KEYS.each do |key|
+        send("#{key}=", options[key])
+      end
+    end
+
     # method name,          path for API,           authentication, http method
     "
       auth                  /auth                          none     post

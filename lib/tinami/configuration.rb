@@ -1,3 +1,5 @@
+require 'tinami/version'
+
 module TINAMI
   # Defines constants and methods related to configuration
   module Configuration
