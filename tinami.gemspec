@@ -20,8 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'hashie', '~> 2.0.5'
 
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'growl'
-  spec.add_development_dependency 'guard-rspec'
   spec.add_development_dependency 'ox'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
