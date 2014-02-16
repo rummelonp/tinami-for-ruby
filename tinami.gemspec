@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/mitukiii/tinami-for-ruby'
   spec.license     = 'MIT'
 
-  spec.add_runtime_dependency 'faraday', '~> 0.8.8'
+  spec.add_runtime_dependency 'faraday', '~> 0.8.9'
   spec.add_runtime_dependency 'faraday_middleware', '~> 0.9.0'
   spec.add_runtime_dependency 'multi_xml', '~> 0.5.5'
   spec.add_runtime_dependency 'hashie', '~> 2.0.5'
