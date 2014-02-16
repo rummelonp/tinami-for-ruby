@@ -10,9 +10,13 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Kazuya Takeshima']
   spec.email       = ['mail@mitukiii.jp']
   spec.summary     = %q{TINAMI is a simple TINAMI API library.}
-  spec.description = %q{TINAMI is a simple TINAMI API library.}
   spec.homepage    = 'https://github.com/mitukiii/tinami-for-ruby'
   spec.license     = 'MIT'
+
+  spec.files         = `git ls-files`.split($/)
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'faraday', '~> 0.8.9'
   spec.add_runtime_dependency 'faraday_middleware', '~> 0.9.0'
