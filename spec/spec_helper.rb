@@ -13,6 +13,7 @@ end
 
 require 'tinami'
 require 'rspec'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -24,4 +25,12 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+end
+
+def stub_get(path, endpoint = TINAMI.endpoint)
+  stub_request(:get, endpoint + '/' + path)
+end
+
+def stub_post(path, endpoint = TINAMI.endpoint)
+  stub_request(:post, endpoint + '/' + path)
 end
