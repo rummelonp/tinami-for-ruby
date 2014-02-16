@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'tinami/client'
 require 'tinami/configuration'
 

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module TINAMI
   module Request
     # Perform an HTTP GET request

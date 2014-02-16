@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module TINAMI
   # Custom error class for rescuing from all TINAMI errors
   class Error < StandardError
