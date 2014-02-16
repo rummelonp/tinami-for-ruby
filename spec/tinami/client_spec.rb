@@ -1,165 +1,124 @@
 # coding: utf-8
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe TINAMI::Client do
-  before do
-    TINAMI.configure do |config|
-      config.api_key  = 'api_key'
+  context 'with module configuration' do
+    let(:keys) { TINAMI::Configuration::VALID_OPTIONS_KEYS }
+
+    before do
+      TINAMI.configure do |config|
+        keys.each do |key|
+          config.send("#{key}=", key)
+        end
+      end
+    end
+
+    after do
+      TINAMI.reset
+    end
+
+    it 'should inherit module configuration' do
+      client = TINAMI::Client.new
+      keys.each do |key|
+        expect(client.send(key)).to eql(key)
+      end
+    end
+
+    context 'with class configuration' do
+      let(:configuration) do
+        {
+          adapter: :typhoeus,
+          api_key: 'AK',
+          auth_key: 'AK',
+          endpoint: 'https://api.twitter.com',
+          proxy: 'http://mitukiii:secret@proxy.example.com:8080',
+          user_agent: 'Custom User Agent'
+        }
+      end
+
+      context 'during initialization' do
+        it 'should override module configuration' do
+          client = TINAMI::Client.new(configuration)
+          keys.each do |key|
+            expect(client.send(key)).to eql(configuration[key])
+          end
+        end
+      end
+
+      context 'after initilization' do
+        it 'should override module configuration after initialization' do
+          client = TINAMI::Client.new
+          configuration.each do |key, value|
+            client.send("#{key}=", value)
+          end
+          keys.each do |key|
+            expect(client.send(key)).to eql(configuration[key])
+          end
+        end
+      end
     end
   end
 
-  context :auth do
-    before do
-      @client = TINAMI::Client.new
+  context 'when have error' do
+    let(:api_key) { 'api_key' }
+    let(:client) { TINAMI::Client.new(api_key: api_key) }
+
+    def create_xml(stat, msg = nil)
+      xml = <<-XML
+        <?xml version="1.0" encoding="utf-8"?>
+        <rsp stat="#{stat}">
+          <err msg="#{msg}" />
+        </rsp>
+      XML
     end
 
-    it 'should respond to auth' do
-      @client.should_receive(:post).with('/auth', api_key: 'api_key', email: 'email', password: 'password')
-      @client.auth('email', 'password')
-    end
-  end
-
-  context :api do
-    before do
-      @client = TINAMI::Client.new(auth_key: 'auth_key')
+    it do
+      stub_get('content/info')
+        .with(query: {api_key: api_key, cont_id: 1})
+        .to_return(status: 200, body: create_xml('fail', 'APIキーが指定されていないか、値が不正です'))
+      expect { client.content('1') }.to raise_error(TINAMI::FailError)
     end
 
-    it 'should respond to info' do
-      @client.should_receive(:get).with('/login/info', api_key: 'api_key', auth_key: 'auth_key')
-      @client.info
+    it do
+      stub_get('content/info')
+        .with(query: {api_key: api_key, cont_id: 1})
+        .to_return(status: 200, body: create_xml('fail'))
+      expect { client.content('1') }.to raise_error(TINAMI::FailError)
     end
 
-    it 'should respond to logout' do
-      @client.should_receive(:get).with('/logout', api_key: 'api_key', auth_key: 'auth_key')
-      @client.logout
+    it do
+      stub_get('content/info')
+        .with(query: {api_key: api_key, cont_id: 1})
+        .to_return(status: 200, body: create_xml('user_only', 'この作品は登録ユーザー限定の作品です'))
+      expect { client.content('1') }.to raise_error(TINAMI::UserOnlyError)
     end
 
-    it 'should respond to search' do
-      @client.should_receive(:get).with('/content/search', api_key: 'api_key', auth_key: 'auth_key', text: 'keyword')
-      @client.search(text: 'keyword')
+    it do
+      stub_get('content/info')
+        .with(query: {api_key: api_key, cont_id: 1})
+        .to_return(status: 200, body: create_xml('bookmark_user_only', 'この作品はお気に入りユーザー限定の作品です'))
+      expect { client.content('1') }.to raise_error(TINAMI::BookmarkUserOnlyError)
     end
 
-    it 'should respond to bookmark_contents' do
-      @client.should_receive(:get).with('/bookmark/content/list', api_key: 'api_key', auth_key: 'auth_key')
-      @client.bookmark_contents
+    it do
+      stub_get('content/info')
+        .with(query: {api_key: api_key, cont_id: 1})
+        .to_return(status: 200, body: create_xml('unknown', 'unknown error'))
+      expect { client.content('1') }.to raise_error(TINAMI::Error)
     end
 
-    it 'should respond to friend_recommenrds' do
-      @client.should_receive(:get).with('/friend/recommend/content/list', api_key: 'api_key', auth_key: 'auth_key')
-      @client.friend_recommends
-    end
-
-    it 'should respond to watchkeyword_contents' do
-      @client.should_receive(:get).with('/watchkeyword/content/list', api_key: 'api_key', auth_key: 'auth_key')
-      @client.watchkeyword_contents
-    end
-
-    it 'should respond to collections' do
-      @client.should_receive(:get).with('/collection/list', api_key: 'api_key', auth_key: 'auth_key')
-      @client.collections
-    end
-
-    it 'should respond to add_collection' do
-      @client.should_receive(:get).with('/collection/add', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
-      @client.add_collection('1')
-    end
-
-    it 'should respond to bookmarks' do
-      @client.should_receive(:get).with('/bookmark/list', api_key: 'api_key', auth_key: 'auth_key')
-      @client.bookmarks
-    end
-
-    it 'should respond to add_bookmark' do
-      @client.should_receive(:get).with('/bookmark/add', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
-      @client.add_bookmark('1')
-    end
-
-    it 'should respond to ranking' do
-      @client.should_receive(:get).with('/ranking', api_key: 'api_key', auth_key: 'auth_key', category: '1')
-      @client.ranking('1')
-    end
-
-    it 'should respond to content' do
-      @client.should_receive(:get).with('/content/info', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
-      @client.content('1')
-    end
-
-    it 'should respond to creator' do
-      @client.should_receive(:get).with('/creator/info', api_key: 'api_key', auth_key: 'auth_key', prof_id: '1')
-      @client.creator('1')
-    end
-
-    it 'should respond to comments' do
-      @client.should_receive(:get).with('/content/comment/list', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
-      @client.comments('1')
-    end
-
-    it 'should respond to add_comment' do
-      @client.should_receive(:get).with('/content/comment/add', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1', comment: 'comment')
-      @client.add_comment('1', 'comment')
-    end
-
-    it 'should respond to remove_comment' do
-      @client.should_receive(:get).with('/content/comment/remove', api_key: 'api_key', auth_key: 'auth_key', comment_id: '1')
-      @client.remove_comment('1')
-    end
-
-    it 'should respond to support' do
-      @client.should_receive(:get).with('/content/support', api_key: 'api_key', auth_key: 'auth_key', cont_id: '1')
-      @client.support('1')
-    end
-  end
-
-  context :error do
-    before do
-      @client = TINAMI::Client.new
-    end
-
-    def create_response(stat, content)
-      {stat: stat}.merge(content).to_xml(root: :rsp)
-    end
-
-    pending do
-      lambda {
-        response = create_response('fail', {err: {msg: 'auth_keyが指定されていません'}})
-        @client.send(:parse_response, response)
-      }.should raise_error(TINAMI::FailError)
-    end
-
-    pending do
-      lambda {
-        response = create_response('fail', {})
-        @client.send(:parse_response, response)
-      }.should raise_error(TINAMI::FailError)
-    end
-
-    pending do
-      lambda {
-        response = create_response('user_only', {err: {msg: 'この作品は登録ユーザー限定の作品です'}})
-        @client.send(:parse_response, response)
-      }.should raise_error(TINAMI::UserOnlyError)
-    end
-
-    pending do
-      lambda {
-        response = create_response('bookmark_user_only', {err: {msg: 'この作品はお気に入りユーザー限定の作品です'}})
-        @client.send(:parse_response, response)
-      }.should raise_error(TINAMI::BookmarkUserOnlyError)
-    end
-
-    pending do
-      lambda {
-        response = create_response('unknown', {err: {msg: 'unknown error'}})
-        @client.send(:parse_response, response)
-      }.should raise_error(TINAMI::Error)
-    end
-
-    pending do
-      lambda {
-        response = create_response('ok', {user: {no: 1}})
-        @client.send(:parse_response, response)
-      }.should_not raise_error(TINAMI::Error)
+    it do
+      xml = <<-XML
+        <?xml version="1.0" encoding="utf-8"?>
+        <rsp stat="ok">
+          <user no="1" />
+        </rsp>
+      XML
+      stub_get('content/info')
+        .with(query: {api_key: api_key, cont_id: 1})
+        .to_return(status: 200, body: xml)
+      expect { client.content('1') }.to_not raise_error
     end
   end
 end

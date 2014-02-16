@@ -23,7 +23,8 @@ module TINAMI
           request.body = params unless params.empty?
         end
       end
-      response.body.rsp
+
+      response.body ? response.body['rsp'] : response.body
     end
   end
 end
