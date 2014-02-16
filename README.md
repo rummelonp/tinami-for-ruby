@@ -1,5 +1,13 @@
 # TINAMI
 
+[![Build Status](https://travis-ci.org/mitukiii/tinami-for-ruby.png?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/mitukiii/tinami-for-ruby.png)][codeclimate]
+[![Dependency Status](https://gemnasium.com/mitukiii/tinami-for-ruby.png?travis)][gemnasium]
+
+[travis]: https://travis-ci.org/mitukiii/tinami-for-ruby
+[codeclimate]: https://codeclimate.com/github/mitukiii/tinami-for-ruby
+[gemnasium]: https://gemnasium.com/mitukiii/tinami-for-ruby
+
 TINAMI is a simple TINAMI API library
 
 ## Installation
